@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://o4yggru5qjwb"]
+
+[ext_resource type="Script" uid="uid://bpkyl1d06qgey" path="res://nodes/battle/simplebox.gd" id="1_3jhsi"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_rta3r"]
+a = Vector2(-285, -68)
+b = Vector2(-285, 68)
+
+[node name="SimpleBox" type="Node2D"]
+script = ExtResource("1_3jhsi")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_left = -285.0
+offset_top = -68.0
+offset_right = 285.0
+offset_bottom = 68.0
+color = Color(0, 0, 0, 1)
+
+[node name="Lines" type="Line2D" parent="."]
+points = PackedVector2Array(-285, -68, 285, -68, 285, 68, -285, 68)
+closed = true
+width = 5.0
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Collider" type="AnimatableBody2D" parent="."]
+
+[node name="Rec" type="CollisionShape2D" parent="Collider"]
+shape = SubResource("SegmentShape2D_rta3r")

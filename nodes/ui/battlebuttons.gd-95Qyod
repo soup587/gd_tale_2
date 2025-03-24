@@ -1,0 +1,6 @@
+@tool
+extends Node2D
+
+@export_enum("Fight", "Act", "Item", "Mercy") var type: int:
+	set(new):
+		print(new)

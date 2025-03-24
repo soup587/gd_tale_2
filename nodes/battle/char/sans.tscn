@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://du73aske3mo2e"]
+
+[ext_resource type="Texture2D" uid="uid://dbd54n5tx2v1w" path="res://sprites/battle/char/sans/head.png" id="1_hrrnt"]
+[ext_resource type="Script" uid="uid://cq2id180aiuc5" path="res://nodes/battle/char/sans.gd" id="1_jwi5o"]
+[ext_resource type="Texture2D" uid="uid://b52c8x3xmgghy" path="res://sprites/battle/char/sans/legs.png" id="1_yckl5"]
+[ext_resource type="Texture2D" uid="uid://egl2l48ekmmt" path="res://sprites/battle/char/sans/torso.png" id="2_jwi5o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8lgh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yckl5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_josfk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jwi5o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_30a4o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hrrnt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="Sans" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_jwi5o")
+
+[node name="Legs" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_r8lgh")
+autoplay = "default"
+
+[node name="Torso" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -30)
+sprite_frames = SubResource("SpriteFrames_josfk")
+
+[node name="Head" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -56)
+sprite_frames = SubResource("SpriteFrames_30a4o")
+autoplay = "default"

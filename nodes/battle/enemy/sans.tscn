@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1jovxsowmww"]
+
+[ext_resource type="Script" uid="uid://dyd4qkpeje2tm" path="res://nodes/battle/enemy/sans.gd" id="1_0ig2j"]
+[ext_resource type="PackedScene" uid="uid://du73aske3mo2e" path="res://nodes/battle/char/sans.tscn" id="2_b6nqj"]
+
+[node name="Sans" type="Node2D"]
+script = ExtResource("1_0ig2j")
+sprite = ExtResource("2_b6nqj")
+metadata/_custom_type_script = "uid://dllajdkf3i8nd"
