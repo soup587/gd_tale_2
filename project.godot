@@ -13,7 +13,10 @@ config_version=5
 config/name="GDTale2"
 run/main_scene="uid://bffb4wbyyjsa0"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/use_filter=false
+boot_splash/image="uid://c76vw8awxgopk"
+config/icon="uid://bs68ryldlpvw4"
 
 [autoload]
 
@@ -72,6 +75,7 @@ Menu={
 
 [layer_names]
 
+2d_physics/layer_3="Damaging"
 2d_physics/layer_10="PlrInteraction"
 
 [physics]

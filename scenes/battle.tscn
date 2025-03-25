@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bffb4wbyyjsa0"]
+[gd_scene load_steps=13 format=3 uid="uid://bffb4wbyyjsa0"]
 
 [ext_resource type="Script" uid="uid://db33c8rcp6s3e" path="res://scenes/battle.gd" id="1_6vh42"]
 [ext_resource type="PackedScene" uid="uid://bhn2a55xgdaiy" path="res://nodes/ui/battlebuttons.tscn" id="1_dn72j"]
@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://cub5wf4fn6bls" path="res://sprites/ui/mnc.ttf" id="7_yahae"]
 [ext_resource type="PackedScene" uid="uid://o4yggru5qjwb" path="res://nodes/battle/simplebox.tscn" id="9_yahae"]
 [ext_resource type="Theme" uid="uid://yeeii3t5aa6l" path="res://sprites/ui/monotxt.tres" id="10_v7i3o"]
+[ext_resource type="PackedScene" uid="uid://co73jkug544rn" path="res://nodes/battle/attacks/skeletons/bonebasic.tscn" id="11_66ngm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v7i3o"]
 font = ExtResource("7_yahae")
@@ -118,5 +119,9 @@ bbcode_enabled = true
 text = "* You feel like you're going to have a bad time."
 scroll_active = false
 shortcut_keys_enabled = false
+
+[node name="BoneBasic" parent="." instance=ExtResource("11_66ngm")]
+position = Vector2(393, 331)
+height = 10
 
 [connection signal="battle_init" from="." to="Buttons" method="_battle_init"]

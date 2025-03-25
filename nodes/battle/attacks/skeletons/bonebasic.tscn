@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://co73jkug544rn"]
+
+[ext_resource type="Script" uid="uid://bdxum2kh3awtv" path="res://nodes/battle/attacks/skeletons/bonebasic.gd" id="1_rerip"]
+[ext_resource type="Texture2D" uid="uid://b4ubthep5l0uf" path="res://sprites/battle/attacks/sansbone.png" id="2_ex6jb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ex6jb"]
+size = Vector2(4, 14)
+
+[node name="BoneBasic" type="Node2D"]
+script = ExtResource("1_rerip")
+damage = 1
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Top" type="Sprite2D" parent="Sprite"]
+position = Vector2(0, -9)
+texture = ExtResource("2_ex6jb")
+region_enabled = true
+region_rect = Rect2(0, 0, 10, 6)
+
+[node name="Middle" type="Sprite2D" parent="Sprite"]
+position = Vector2(0, -6)
+scale = Vector2(1, 1e-05)
+texture = ExtResource("2_ex6jb")
+offset = Vector2(0, -0.5)
+region_enabled = true
+region_rect = Rect2(0, 6, 10, 1)
+
+[node name="Bottom" type="Sprite2D" parent="Sprite"]
+position = Vector2(0, -3)
+texture = ExtResource("2_ex6jb")
+region_enabled = true
+region_rect = Rect2(0, 7, 10, 6)
+
+[node name="Collision" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Shape" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_ex6jb")
