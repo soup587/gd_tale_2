@@ -1,8 +1,8 @@
 extends Node2D
 
-var siner = 0
-var xoff = 0
-var yoff = 0
+var siner = 0.0
+var xoff = 0.0
+var yoff = 0.0
 
 func _physics_process(d):
 	siner -= 1

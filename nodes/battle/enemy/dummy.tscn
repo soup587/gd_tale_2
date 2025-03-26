@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4oys1dh4fuh5"]
+
+[ext_resource type="Script" uid="uid://b7koygrft1mq4" path="res://nodes/battle/enemy/dummy.gd" id="1_yh41s"]
+[ext_resource type="PackedScene" uid="uid://dj60pagnto02n" path="res://nodes/battle/char/dummy.tscn" id="2_eomgw"]
+
+[node name="Dummy" type="Node2D"]
+script = ExtResource("1_yh41s")
+mname = "Dummy"
+attacks = ["dummy/1"]
+sprite = ExtResource("2_eomgw")
+metadata/_custom_type_script = "uid://dllajdkf3i8nd"

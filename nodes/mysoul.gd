@@ -17,15 +17,19 @@ func _physics_process(d):
 	
 	velocity = Vector2(0,0)
 	
+	var spdmul = 1
 	if control:
+		if Input.is_action_pressed("Cancel"):
+			spdmul = spdmul * 0.5
+		
 		if Input.is_action_pressed("Up"):
-			velocity.y -= PlayerVars.spd*30
+			velocity.y -= (PlayerVars.spd*30)*spdmul
 		if Input.is_action_pressed("Down"):
-			velocity.y += PlayerVars.spd*30
+			velocity.y += (PlayerVars.spd*30)*spdmul
 		if Input.is_action_pressed("Left"):
-			velocity.x -= PlayerVars.spd*30
+			velocity.x -= (PlayerVars.spd*30)*spdmul
 		if Input.is_action_pressed("Right"):
-			velocity.x += PlayerVars.spd*30
+			velocity.x += (PlayerVars.spd*30)*spdmul
 
 	move_and_slide()
 

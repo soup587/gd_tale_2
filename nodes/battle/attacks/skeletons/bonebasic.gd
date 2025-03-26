@@ -1,5 +1,5 @@
 @tool
-extends BaseAttack
+extends BasicVelocityAttack
 
 @export_enum("Sans", "Papyrus") var type: int
 @export var height: int:
@@ -16,3 +16,4 @@ func _update_shape():
 	
 func _ready():
 	_update_shape()
+	super()

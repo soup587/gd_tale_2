@@ -8,14 +8,14 @@
 script = ExtResource("1_743jn")
 
 [node name="Text" type="RichTextLabel" parent="."]
-offset_left = 102.0
-offset_right = 315.0
+offset_left = 72.0
+offset_right = 285.0
 offset_bottom = 38.0
 theme = ExtResource("2_g80n0")
 text = "* Check"
 scroll_active = false
 
 [node name="Point" type="Sprite2D" parent="."]
-position = Vector2(73, 17)
+position = Vector2(45, 17)
 texture = ExtResource("3_vvvqp")
 hframes = 2

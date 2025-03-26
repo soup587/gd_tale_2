@@ -1,0 +1,111 @@
+[gd_scene load_steps=14 format=3 uid="uid://b5bigfiyxsp2l"]
+
+[ext_resource type="Script" uid="uid://buitwvrlbqi0o" path="res://nodes/battle/attacks/skeletons/gaster_blaster.gd" id="1_02e4q"]
+[ext_resource type="Texture2D" uid="uid://3t2t0j6v72ct" path="res://sprites/battle/attacks/gaster_blaster.png" id="2_3pgo5"]
+[ext_resource type="Texture2D" uid="uid://cbq375f5n2hu0" path="res://sprites/battle/attacks/beamcircle.png" id="3_3pgo5"]
+[ext_resource type="AudioStream" uid="uid://vvfnqi1wu0fm" path="res://snd/rainbowbeam_1.wav" id="4_ejvgt"]
+[ext_resource type="AudioStream" uid="uid://b85vgg11tkxjk" path="res://snd/segapower.wav" id="5_280pi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flqox"]
+size = Vector2(14, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flqox"]
+atlas = ExtResource("2_3pgo5")
+region = Rect2(0, 0, 43, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejvgt"]
+atlas = ExtResource("2_3pgo5")
+region = Rect2(43, 0, 43, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_280pi"]
+atlas = ExtResource("2_3pgo5")
+region = Rect2(86, 0, 43, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pgo5"]
+atlas = ExtResource("2_3pgo5")
+region = Rect2(129, 0, 43, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34hah"]
+atlas = ExtResource("2_3pgo5")
+region = Rect2(172, 0, 43, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_131wa"]
+atlas = ExtResource("2_3pgo5")
+region = Rect2(215, 0, 43, 57)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ly34i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flqox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejvgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_280pi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pgo5")
+}],
+"loop": false,
+"name": &"charge",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34hah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_131wa")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 30.0
+}]
+
+[node name="GasterBlaster" type="Node2D"]
+z_index = 5
+scale = Vector2(2, 2)
+script = ExtResource("1_02e4q")
+targetpos = Vector2(200, 0)
+damage = 1
+metadata/_custom_type_script = "uid://dfwiuaig2oxm7"
+
+[node name="Collision" type="Area2D" parent="."]
+position = Vector2(0, 40)
+scale = Vector2(2, 2)
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+
+[node name="Beamcircle" type="Sprite2D" parent="Collision"]
+position = Vector2(0, -0.200001)
+texture = ExtResource("3_3pgo5")
+
+[node name="Beamcol" type="ColorRect" parent="Collision/Beamcircle"]
+offset_left = -8.0
+offset_right = 8.0
+offset_bottom = 600.0
+
+[node name="BeamCircle" type="CollisionPolygon2D" parent="Collision"]
+position = Vector2(0, -0.200001)
+polygon = PackedVector2Array(-3, -8, -3, -7, -5, -7, -5, -6, -6, -6, -6, -5, -7, -5, -7, -3, -8, -3, -8, 3, -7, 3, -7, 5, -6, 5, -6, 6, -5, 6, -5, 7, -3, 7, -3, 8, 3, 8, 3, 7, 5, 7, 5, 6, 6, 6, 6, 5, 7, 5, 7, 3, 8, 3, 8, -3, 7, -3, 7, -5, 6, -5, 6, -6, 5, -6, 5, -7, 3, -7, 3, -8)
+
+[node name="Beam" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0, 299.8)
+shape = SubResource("RectangleShape2D_flqox")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ly34i")
+animation = &"charge"
+offset = Vector2(-0.5, 0.5)
+
+[node name="Blast" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ejvgt")
+
+[node name="Charge" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_280pi")
+
+[connection signal="changed_enabled" from="." to="." method="_on_changed_enabled"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

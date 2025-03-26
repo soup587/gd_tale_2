@@ -1,0 +1,27 @@
+{
+	"length": 120,
+	"objects": [
+		{
+			"node": "skeletons/bonebasic",
+			"position": [0,100],
+			"properties": {
+				"height": 10,
+				"speed": 5,
+				"direction": 0,
+				"enabled": false,
+				"delay": 30
+			}
+		},
+		{
+			"node": "skeletons/bonebasic",
+			"position": [570,100],
+			"properties": {
+				"height": 10,
+				"speed": 5,
+				"direction": 180,
+				"enabled": false,
+				"delay": 30
+			}
+		},
+	]
+}

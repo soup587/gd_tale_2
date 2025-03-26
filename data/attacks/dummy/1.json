@@ -1,0 +1,30 @@
+{
+	"length": 120,
+	"objects": [
+		{
+			"node": "skeletons/gaster_blaster",
+			"position": [0,-500],
+			"properties": {
+				"targetpos": [100,0],
+				"delay": 10
+			}
+		},
+		{
+			"node": "skeletons/gaster_blaster",
+			"position": [0,-500],
+			"properties": {
+				"targetpos": [400,300],
+				"targetrot": 90,
+				"delay": 15
+			}
+		},
+		{
+			"node": "skeletons/gaster_blaster",
+			"position": [0,-500],
+			"properties": {
+				"targetpos": [300,0],
+				"delay": 25
+			}
+		}
+	]
+}

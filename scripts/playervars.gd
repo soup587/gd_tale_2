@@ -10,7 +10,7 @@ var maxspd = 4
 
 signal plrdamage
 
-func damagePlayer(amt = 1, iinv = true):
+func damage_player(amt = 1, iinv = true):
 	if iinv:
 		if inv > 0:
 			return
@@ -19,11 +19,8 @@ func damagePlayer(amt = 1, iinv = true):
 	plrdamage.emit()
 
 func _input(event):
-	pass
-	#if event.is_action_pressed("Space"):
-	#	damagePlayer(1)
+	if event.is_action_pressed("Space"):
+		GlobalVars.battle.do_playerturn()
 
 func _physics_process(d):
-	if Input.is_action_pressed("Space"):
-		damagePlayer(1,false)
 	inv -= 1

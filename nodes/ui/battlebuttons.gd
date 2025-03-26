@@ -18,7 +18,7 @@ extends Node2D
 		
 var state = false
 
-func setSel(st):
+func set_sel(st):
 	if st == state: return
 	$Sprite.frame = st and 1 or 0
 	if st: $snd_movemenu.play()
@@ -34,4 +34,20 @@ func _on_area_2d_body_exited(body):
 
 func _on_interact():
 	if GlobalVars.battle:
-		GlobalVars.battle.set_menu(load("res://nodes/battle/menu/entries.tscn"))
+		AudioPlayer.play_sel()
+		match type:
+			0:
+				pass
+			1:
+				var mnus = load("res://nodes/battle/menu/entries.tscn")
+				var mnu = mnus.instantiate()
+				for m in GlobalVars.battle.monsters:
+					var smnu = mnus.instantiate()
+					mnu.add_entry(m.name, func(): GlobalVars.battle.menumanager.set_menu(smnu))
+					for a in m.acts:
+						smnu.add_entry(a.text, a.func)
+				GlobalVars.battle.menumanager.set_menu(mnu)
+			2:
+				pass
+			3:
+				pass
