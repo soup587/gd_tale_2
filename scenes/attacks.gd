@@ -9,29 +9,51 @@ var valparses: Dictionary = {
 		)
 }
 
+func parse_parser(val, trg = null):
+	var t = typeof(val)
+	if t == TYPE_STRING:
+		for k in valparses:
+			if val.contains("f_"+k):
+				var e =  Expression.new()
+				e.parse(val.replace(("f_"+k), str(valparses[k].call())))
+				return e.execute()
+	return val
+
+
+func parse_val(val, trg = null):
+	var tg = typeof(trg)
+	if tg == TYPE_VECTOR2:
+		return Vector2(parse_parser(val[0]), parse_parser(val[1]))
+	elif tg == TYPE_VECTOR2I:
+		return Vector2i(parse_parser(val[0]), parse_parser(val[1]))
+	return parse_parser(val)
+	
+var lastvals = {}
+
 func load_enemy_attack_file(path: String):
 	var jsn = JSON.parse_string(FileAccess.get_file_as_string("res://data/attacks/"+path+".json"))
 	if jsn.has("objects"):
 		for obj in jsn.objects:
-			var node = load("res://nodes/battle/attacks/"+obj.node+".tscn").instantiate()
-		
-			node.position.y = obj.position[1]
-			if typeof(obj.position[0]) == TYPE_STRING:
-				for k in valparses:
-					if obj.position[0] == ("f_"+k):
-						node.position.x = valparses[k].call()
-						break
-			else:
-				node.position.x = obj.position[0]
-					
-			for k in obj.properties:
-				if typeof(node[k]) == TYPE_VECTOR2:
-					node[k] = Vector2(obj.properties[k][0], obj.properties[k][1])
-				elif typeof(node[k]) == 6:
-					node[k] = Vector2i(obj.properties[k][0], obj.properties[k][1])
-				else:
-					node[k] = obj.properties[k]
-			add_child(node)
+			for k in obj:
+				lastvals[k] = obj[k]
+			var loops = 1
+			if lastvals.has("count"):
+				loops = lastvals.count
+			for i in loops:
+				var node = load("res://nodes/battle/attacks/"+(lastvals.node)+".tscn").instantiate()
+
+				node.position.x = parse_val(lastvals.position[0])
+				node.position.y = parse_val(lastvals.position[1])
+
+				
+				node.delay = lastvals.delay + (lastvals.countdelay*i)
+				
+				for k in obj.properties:
+					node[k] = parse_val(obj.properties[k], node[k])
+					node.changed_enabled.connect(func():
+						node[k] = parse_val(obj.properties[k], node[k])
+					)
+				add_child(node)
 	$Timer.wait_time = jsn.length/30
 	$Timer.start()
 	

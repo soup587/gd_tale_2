@@ -12,13 +12,44 @@ func fire():
 	$Sprite.animation = "fire"
 	$Sprite.play()
 	$Collision.monitoring = true
-	$Blast.play()
-	await get_tree().create_timer(30/30).timeout
-	queue_free()
+	AudioPlayer.play(load("res://snd/rainbowbeam_1.wav"))
+	retreatspeed = 1
+	
+var retreatspeed: float = 0
+var fade: float = 1
+var beamt: float = 0
+var beamsine: float = 0
+var beamb: float = 0
+
+var beamtimer: int = 0
 
 func _physics_process(delta: float) -> void:
 	if !enabled: return
 	super(delta)
+	if retreatspeed:
+		
+		beamtimer += 1
+		
+		if beamtimer < 5:
+			retreatspeed += 1
+			beamt += floor(35 * scale.x / 4)
+		else:
+			retreatspeed += 4
+		
+		if beamtimer > 7:
+			beamt *= 0.8
+			fade -= 0.1
+			$Collision.modulate.a = fade
+			if beamt <= 2:
+				queue_free()
+			
+		if fade < 0.8:
+			$Collision.monitoring = false
+			
+		position += Vector2(retreatspeed,0).rotated(rotation - deg_to_rad(90))
+		beamsine += 1
+		beamb = (sin(beamsine / 1.5) * (beamt*4)) / 10
+		$Collision/Beamcircle.scale.x = beamb / 16
 	match stage:
 		1:
 			position.x += floor((targetpos.x - position.x) / 3)

@@ -1,29 +1,22 @@
 {
-	"length": 120,
+	"length": 200,
 	"objects": [
 		{
 			"node": "skeletons/gaster_blaster",
-			"position": [0,-500],
+			"count": 15,
+			"position": [0,0],
+			"delay": 20,
+			"countdelay": 16,
 			"properties": {
-				"targetpos": [100,0],
-				"delay": 10
+				"targetpos": ["f_plrposx",200]
 			}
 		},
 		{
-			"node": "skeletons/gaster_blaster",
-			"position": [0,-500],
+			"delay": 10,
+			"countdelay": 16,
 			"properties": {
-				"targetpos": [400,300],
-				"targetrot": 90,
-				"delay": 15
-			}
-		},
-		{
-			"node": "skeletons/gaster_blaster",
-			"position": [0,-500],
-			"properties": {
-				"targetpos": [300,0],
-				"delay": 25
+				"targetpos": ["f_plrposx+200","f_plrposy"],
+				"targetrot": 90
 			}
 		}
 	]
