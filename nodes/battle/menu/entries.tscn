@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg588mw6kqu2g"]
-
-[ext_resource type="Script" uid="uid://b8k5fct8dprdo" path="res://nodes/battle/menu/entries.gd" id="1_u27og"]
-
-[node name="Entries" type="Node2D"]
-script = ExtResource("1_u27og")

@@ -1,7 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://yeeii3t5aa6l"]
-
-[ext_resource type="FontFile" uid="uid://bbjnrn6n7b7je" path="res://sprites/ui/dtm-mono.otf" id="1_ovgkl"]
-
-[resource]
-default_font = ExtResource("1_ovgkl")
-default_font_size = 26
