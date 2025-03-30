@@ -1,7 +1,23 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://yeeii3t5aa6l"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://yeeii3t5aa6l"]
 
 [ext_resource type="FontFile" uid="uid://bbjnrn6n7b7je" path="res://sprites/ui/dtm-mono.otf" id="1_ovgkl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovgkl"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+anti_aliasing = false
 
 [resource]
 default_font = ExtResource("1_ovgkl")
 default_font_size = 26
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/normal = SubResource("StyleBoxFlat_ovgkl")

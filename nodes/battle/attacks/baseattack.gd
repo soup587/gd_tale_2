@@ -30,10 +30,14 @@ signal changed_enabled
 func set_enabled(state: bool):
 	if state:
 		changed_enabled.emit()
+		_on_enabled()
 		reset_physics_interpolation()
 	set_process(state)
 	visible = state
 	enabled = state
+
+func _on_enabled():
+	pass
 
 func _ready() -> void:
 	var dtimer = Timer.new()
@@ -41,10 +45,12 @@ func _ready() -> void:
 	add_child(dtimer)
 	
 	if Engine.is_editor_hint(): return
+	
 	collider = get_node("Collision")
 	collider.body_entered.connect(func(_a): colliding = true)
 	collider.body_exited.connect(func(_a): colliding = false)
-	if $ScreenBox:
+	
+	if has_node("ScreenBox"):
 		$ScreenBox.screen_exited.connect(queue_free)
 	if delay > -1:
 		set_enabled(false)

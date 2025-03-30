@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bffb4wbyyjsa0"]
+[gd_scene load_steps=18 format=3 uid="uid://bffb4wbyyjsa0"]
 
 [ext_resource type="Script" uid="uid://db33c8rcp6s3e" path="res://scenes/battle.gd" id="1_6vh42"]
 [ext_resource type="PackedScene" uid="uid://bhn2a55xgdaiy" path="res://nodes/ui/battlebuttons.tscn" id="1_dn72j"]
 [ext_resource type="Texture2D" uid="uid://fjwexfgouty4" path="res://sprites/battle/bg.png" id="1_p1qf1"]
-[ext_resource type="AudioStream" uid="uid://bypde64rha30p" path="res://mus/prebattle1.ogg" id="2_22uqi"]
-[ext_resource type="PackedScene" uid="uid://c4oys1dh4fuh5" path="res://nodes/battle/enemy/dummy.tscn" id="3_22uqi"]
-[ext_resource type="PackedScene" uid="uid://d1jovxsowmww" path="res://nodes/battle/enemy/sans.tscn" id="4_6ni85"]
+[ext_resource type="AudioStream" uid="uid://b8q3c5oyoq685" path="res://mus/battle1.ogg" id="2_6ni85"]
+[ext_resource type="Script" uid="uid://btifp1j426o6j" path="res://scenes/camera.gd" id="3_ekamt"]
 [ext_resource type="Script" uid="uid://doqydltxtwaw7" path="res://scenes/battle/buttons.gd" id="4_yahae"]
 [ext_resource type="Texture2D" uid="uid://cnqtjvjp3go5g" path="res://sprites/ui/hp.png" id="5_f4pi3"]
 [ext_resource type="Script" uid="uid://0tvyvyj3vbkd" path="res://scenes/battle/health.gd" id="6_v7i3o"]
@@ -16,6 +15,12 @@
 [ext_resource type="Script" uid="uid://dtjuok7kvj2ay" path="res://scenes/box_text.gd" id="12_22uqi"]
 [ext_resource type="Script" uid="uid://ba6rlp863q1uk" path="res://scenes/menu_manager.gd" id="13_6ni85"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ni85"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vceff"]
+bg_color = Color(1, 1, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_v7i3o"]
 font = ExtResource("7_yahae")
 font_size = 24
@@ -24,11 +29,15 @@ font_size = 24
 script = ExtResource("1_6vh42")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_22uqi")
+stream = ExtResource("2_6ni85")
 bus = &"Music"
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(320, 240)
+script = ExtResource("3_ekamt")
+
+[node name="FancyFX" type="Node2D" parent="."]
+z_index = 40
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -38,41 +47,53 @@ texture = ExtResource("1_p1qf1")
 centered = false
 
 [node name="Monsters" type="Node2D" parent="."]
+position = Vector2(320, 242)
 
-[node name="Dummy" parent="Monsters" instance=ExtResource("3_22uqi")]
-position = Vector2(261, 240)
+[node name="Soul" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
 
-[node name="Sans" parent="Monsters" instance=ExtResource("4_6ni85")]
-position = Vector2(411, 245)
+[node name="Attacks" type="CanvasLayer" parent="."]
+layer = 3
+follow_viewport_enabled = true
+script = ExtResource("10_6ni85")
 
-[node name="Buttons" type="Node2D" parent="."]
+[node name="Timer" type="Timer" parent="Attacks"]
+process_callback = 0
+wait_time = 0.001
+one_shot = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Buttons" type="Node2D" parent="UI"]
 unique_name_in_owner = true
 script = ExtResource("4_yahae")
 
-[node name="Fight" parent="Buttons" instance=ExtResource("1_dn72j")]
+[node name="Fight" parent="UI/Buttons" instance=ExtResource("1_dn72j")]
 position = Vector2(87, 453)
 
-[node name="Act" parent="Buttons" instance=ExtResource("1_dn72j")]
+[node name="Act" parent="UI/Buttons" instance=ExtResource("1_dn72j")]
 position = Vector2(240, 453)
 type = 1
 
-[node name="Item" parent="Buttons" instance=ExtResource("1_dn72j")]
+[node name="Item" parent="UI/Buttons" instance=ExtResource("1_dn72j")]
 position = Vector2(400, 453)
 type = 2
 
-[node name="Mercy" parent="Buttons" instance=ExtResource("1_dn72j")]
+[node name="Mercy" parent="UI/Buttons" instance=ExtResource("1_dn72j")]
 position = Vector2(555, 453)
 type = 3
 
-[node name="Health" type="Node2D" parent="."]
+[node name="Health" type="Node2D" parent="UI"]
 script = ExtResource("6_v7i3o")
 
-[node name="HPSpr" type="Sprite2D" parent="Health"]
+[node name="HPSpr" type="Sprite2D" parent="UI/Health"]
 position = Vector2(244, 405)
 texture = ExtResource("5_f4pi3")
 centered = false
 
-[node name="HPBar" type="Control" parent="Health"]
+[node name="HPBar" type="Control" parent="UI/Health"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 275.0
@@ -80,7 +101,8 @@ offset_top = 400.0
 offset_right = 300.0
 offset_bottom = 421.0
 
-[node name="BG" type="ColorRect" parent="Health/HPBar"]
+[node name="BG" type="ColorRect" parent="UI/Health/HPBar"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,7 +111,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 1)
 
-[node name="FG" type="ColorRect" parent="Health/HPBar"]
+[node name="FG" type="ColorRect" parent="UI/Health/HPBar"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,7 +121,20 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 0, 1)
 
-[node name="HPText" type="Label" parent="Health"]
+[node name="Bar" type="ProgressBar" parent="UI/Health/HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_v7i3o")
+theme_override_styles/background = SubResource("StyleBoxFlat_6ni85")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vceff")
+max_value = 20.0
+show_percentage = false
+
+[node name="HPText" type="Label" parent="UI/Health"]
 offset_left = 314.0
 offset_top = 400.0
 offset_right = 407.0
@@ -106,7 +142,7 @@ offset_bottom = 424.0
 text = "20 / 20"
 label_settings = SubResource("LabelSettings_v7i3o")
 
-[node name="NameText" type="Label" parent="."]
+[node name="NameText" type="Label" parent="UI"]
 offset_left = 30.0
 offset_top = 400.0
 offset_right = 105.0
@@ -114,7 +150,7 @@ offset_bottom = 424.0
 text = "Chara"
 label_settings = SubResource("LabelSettings_v7i3o")
 
-[node name="LVText" type="Label" parent="."]
+[node name="LVText" type="Label" parent="UI"]
 offset_left = 132.0
 offset_top = 400.0
 offset_right = 186.0
@@ -122,28 +158,21 @@ offset_bottom = 424.0
 text = "LV 1"
 label_settings = SubResource("LabelSettings_v7i3o")
 
-[node name="Attacks" type="Node2D" parent="."]
-script = ExtResource("10_6ni85")
-
-[node name="Timer" type="Timer" parent="Attacks"]
-process_callback = 0
-wait_time = 0.001
-one_shot = true
-
-[node name="Box" parent="." instance=ExtResource("9_yahae")]
+[node name="Box" parent="UI" instance=ExtResource("9_yahae")]
+light_mask = 0
 position = Vector2(320, 321)
 
-[node name="MenuManager" type="Node2D" parent="Box"]
+[node name="MenuManager" type="Node2D" parent="UI/Box"]
 script = ExtResource("13_6ni85")
 
-[node name="TextBox" type="Control" parent="Box"]
+[node name="TextBox" type="Control" parent="UI/Box"]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("10_v7i3o")
 script = ExtResource("12_22uqi")
 snd = "txt2"
 
-[node name="Text" type="RichTextLabel" parent="Box/TextBox"]
+[node name="Text" type="RichTextLabel" parent="UI/Box/TextBox"]
 layout_mode = 0
 offset_left = -238.0
 offset_top = -51.0
@@ -156,7 +185,7 @@ scroll_active = false
 shortcut_keys_enabled = false
 visible_characters_behavior = 1
 
-[node name="Asterisk" type="Label" parent="Box/TextBox"]
+[node name="Asterisk" type="Label" parent="UI/Box/TextBox"]
 layout_mode = 0
 offset_left = -268.0
 offset_top = -51.0
@@ -164,8 +193,8 @@ offset_right = -228.0
 offset_bottom = -19.0
 text = "*"
 
-[node name="sound" type="AudioStreamPlayer" parent="Box/TextBox"]
+[node name="sound" type="AudioStreamPlayer" parent="UI/Box/TextBox"]
 bus = &"Text"
 
-[connection signal="battle_init" from="." to="Buttons" method="_battle_init"]
+[connection signal="battle_init" from="." to="UI/Buttons" method="_battle_init"]
 [connection signal="timeout" from="Attacks/Timer" to="Attacks" method="_on_timer_timeout"]

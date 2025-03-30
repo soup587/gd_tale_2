@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7a1q0nebw83y"]
+
+[ext_resource type="Script" uid="uid://b3gi4vm0w20l5" path="res://nodes/overworld/mainchara.gd" id="1_4cf6l"]
+[ext_resource type="SpriteFrames" uid="uid://curnjnfdonfop" path="res://sprites/overworld/frisk_default.tres" id="2_67eap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7dit"]
+size = Vector2(20, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67eap"]
+size = Vector2(10, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2aahm"]
+size = Vector2(30, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy45r"]
+size = Vector2(30, 10)
+
+[node name="MainChara" type="CharacterBody2D"]
+y_sort_enabled = true
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_4cf6l")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_67eap")
+animation = &"down"
+speed_scale = 0.2
+offset = Vector2(0, -15)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_s7dit")
+
+[node name="Interact" type="Area2D" parent="."]
+position = Vector2(0, -20)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Down" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, 21)
+shape = SubResource("RectangleShape2D_67eap")
+disabled = true
+
+[node name="Right" type="CollisionShape2D" parent="Interact"]
+position = Vector2(10, 15)
+shape = SubResource("RectangleShape2D_2aahm")
+disabled = true
+
+[node name="Up" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_67eap")
+disabled = true
+
+[node name="Left" type="CollisionShape2D" parent="Interact"]
+position = Vector2(-10, 15)
+shape = SubResource("RectangleShape2D_dy45r")
+disabled = true

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkkwosvpjmp2m"]
+
+[ext_resource type="Script" uid="uid://2j84xxa56824" path="res://nodes/effects/overworld/battleblcon.gd" id="1_ooxmc"]
+[ext_resource type="Texture2D" uid="uid://blk03x82cydlj" path="res://sprites/overworld/exc.png" id="2_ac0xo"]
+[ext_resource type="AudioStream" uid="uid://cv4f43jqsoqdl" path="res://snd/b.wav" id="3_ramq4"]
+
+[node name="BattleBLcon" type="Node2D"]
+z_index = 500
+z_as_relative = false
+script = ExtResource("1_ooxmc")
+
+[node name="Bubble" type="Sprite2D" parent="."]
+texture = ExtResource("2_ac0xo")
+centered = false
+offset = Vector2(-5, -10)
+
+[node name="B" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ramq4")
+autoplay = true
+bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

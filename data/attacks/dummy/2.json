@@ -1,0 +1,13 @@
+{
+	"length": 60,
+	"boxsize": [300,136],
+	"objects": [
+		{
+			"node": "asriel/rainbowbolt",
+			"count": 4,
+			"position": ["155+f_iter*100",389],
+			"delay": 20,
+			"countdelay": 2
+		}
+	]
+}

@@ -1,7 +1,7 @@
 extends Monster
 
 func _ready():
-	super._ready()
+	super()
 	
 	acts.append(
 		{
@@ -12,3 +12,11 @@ func _ready():
 			)
 		}
 	)
+	
+	shudder_finshed.connect(func():
+		csprite.get_node("Sprite").animation = "default"
+	)
+
+func _on_hit():
+	super()
+	csprite.get_node("Sprite").animation = "hurt"

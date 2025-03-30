@@ -12,7 +12,11 @@ func fire():
 	$Sprite.animation = "fire"
 	$Sprite.play()
 	$Collision.monitoring = true
-	AudioPlayer.play(load("res://snd/rainbowbeam_1.wav"))
+	AudioPlayer.play(load("res://snd/rainbowbeam_1.wav"),0.8,1.2)
+	AudioPlayer.play(load("res://snd/gigatalk.wav"),0.6,1.2)
+	if get_viewport().get_camera_2d():
+		get_viewport().get_camera_2d().shake(10)
+	
 	retreatspeed = 1
 	
 var retreatspeed: float = 0
@@ -47,9 +51,9 @@ func _physics_process(delta: float) -> void:
 			$Collision.monitoring = false
 			
 		position += Vector2(retreatspeed,0).rotated(rotation - deg_to_rad(90))
-		beamsine += 1
-		beamb = (sin(beamsine / 1.5) * (beamt*4)) / 10
-		$Collision/Beamcircle.scale.x = beamb / 16
+		beamsine += 0.5
+		beamb = (sin(beamsine / 1.5) * (beamt/4))
+		$Collision/Beamcircle.scale.x = beamb/16
 	match stage:
 		1:
 			position.x += floor((targetpos.x - position.x) / 3)

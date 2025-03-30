@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5b2hi0ngoe3o"]
+
+[ext_resource type="Script" uid="uid://n2b51qpit6g4" path="res://nodes/overworld/npcs/dummy.gd" id="1_g7p4n"]
+[ext_resource type="Texture2D" uid="uid://heegqscrov21" path="res://sprites/overworld/npcs/dummy.png" id="2_7m26x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4etf"]
+size = Vector2(5, 7)
+
+[node name="Dummy" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 0
+script = ExtResource("1_g7p4n")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -15)
+texture = ExtResource("2_7m26x")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -3.5)
+shape = SubResource("RectangleShape2D_s4etf")

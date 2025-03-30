@@ -37,7 +37,11 @@ func _on_interact():
 		AudioPlayer.play_sel()
 		match type:
 			0:
-				pass
+				var mnu = load("res://nodes/battle/menu/entries.tscn").instantiate()
+				for m in GlobalVars.battle.monsters:
+					var amnu = load("res://nodes/battle/menu/attackmenu.tscn").instantiate()
+					mnu.add_entry(m.name, func(): GlobalVars.battle.menumanager.set_menu(amnu,{monster = m}))
+				GlobalVars.battle.menumanager.set_menu(mnu)
 			1:
 				var mnus = load("res://nodes/battle/menu/entries.tscn")
 				var mnu = mnus.instantiate()
@@ -50,4 +54,7 @@ func _on_interact():
 			2:
 				pass
 			3:
-				pass
+				var mnu = load("res://nodes/battle/menu/entries.tscn").instantiate()
+				mnu.add_entry("Spare", func(): pass)
+				mnu.add_entry("Flee", func(): Encounters.end_encounter())
+				GlobalVars.battle.menumanager.set_menu(mnu)

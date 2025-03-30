@@ -1,14 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://o4yggru5qjwb"]
+[gd_scene load_steps=3 format=3 uid="uid://o4yggru5qjwb"]
 
 [ext_resource type="Script" uid="uid://bpkyl1d06qgey" path="res://nodes/battle/simplebox.gd" id="1_3jhsi"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_rta3r"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_7enbs"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_31fow"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_frs34"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rta3r"]
+size = Vector2(5, 5)
 
 [node name="SimpleBox" type="Node2D"]
 script = ExtResource("1_3jhsi")
@@ -20,23 +15,50 @@ offset_right = 285.0
 offset_bottom = 68.0
 color = Color(0, 0, 0, 1)
 
-[node name="Lines" type="Line2D" parent="."]
-points = PackedVector2Array(-285, -68, 285, -68, 285, 68, -285, 68)
-closed = true
+[node name="Top" type="AnimatableBody2D" parent="."]
+position = Vector2(0, -68)
+scale = Vector2(115, 1)
+sync_to_physics = false
+
+[node name="Collision" type="CollisionShape2D" parent="Top"]
+shape = SubResource("RectangleShape2D_rta3r")
+
+[node name="Line" type="Line2D" parent="Top"]
+points = PackedVector2Array(2.5, 0, -2.5, 0)
 width = 5.0
-begin_cap_mode = 1
-end_cap_mode = 1
 
-[node name="Collider" type="AnimatableBody2D" parent="."]
+[node name="Bottom" type="AnimatableBody2D" parent="."]
+position = Vector2(0, 68)
+scale = Vector2(115, 1)
+sync_to_physics = false
 
-[node name="1" type="CollisionShape2D" parent="Collider"]
-shape = SubResource("SegmentShape2D_rta3r")
+[node name="Collision" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource("RectangleShape2D_rta3r")
 
-[node name="2" type="CollisionShape2D" parent="Collider"]
-shape = SubResource("SegmentShape2D_7enbs")
+[node name="Line" type="Line2D" parent="Bottom"]
+points = PackedVector2Array(2.5, 0, -2.5, 0)
+width = 5.0
 
-[node name="3" type="CollisionShape2D" parent="Collider"]
-shape = SubResource("SegmentShape2D_31fow")
+[node name="Left" type="AnimatableBody2D" parent="."]
+position = Vector2(-285, 0)
+scale = Vector2(1, 28)
+sync_to_physics = false
 
-[node name="4" type="CollisionShape2D" parent="Collider"]
-shape = SubResource("SegmentShape2D_frs34")
+[node name="Collision" type="CollisionShape2D" parent="Left"]
+shape = SubResource("RectangleShape2D_rta3r")
+
+[node name="Line" type="Line2D" parent="Left"]
+points = PackedVector2Array(2.5, 0, -2.5, 0)
+width = 5.0
+
+[node name="Right" type="AnimatableBody2D" parent="."]
+position = Vector2(285, 0)
+scale = Vector2(1, 28)
+sync_to_physics = false
+
+[node name="Collision" type="CollisionShape2D" parent="Right"]
+shape = SubResource("RectangleShape2D_rta3r")
+
+[node name="Line" type="Line2D" parent="Right"]
+points = PackedVector2Array(2.5, 0, -2.5, 0)
+width = 5.0

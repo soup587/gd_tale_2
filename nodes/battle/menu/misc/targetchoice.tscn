@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0k7bget4fukw"]
+
+[ext_resource type="Script" uid="uid://bmb4m2tdpspbn" path="res://nodes/battle/menu/misc/targetchoice.gd" id="1_svmdr"]
+[ext_resource type="Texture2D" uid="uid://ditrdgwrfyf80" path="res://sprites/ui/targetchoice.png" id="2_7ee6c"]
+
+[node name="Targetchoice" type="Node2D"]
+script = ExtResource("1_svmdr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_7ee6c")
+hframes = 2

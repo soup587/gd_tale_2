@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://1wqaiiavf1jy"]
+
+[ext_resource type="Script" uid="uid://rmveqhlq6xo1" path="res://nodes/battle/menu/attackmenu.gd" id="1_j6uo4"]
+[ext_resource type="Texture2D" uid="uid://b1lhisa0r4ymr" path="res://sprites/ui/target.png" id="2_u5y4m"]
+[ext_resource type="Texture2D" uid="uid://ditrdgwrfyf80" path="res://sprites/ui/targetchoice.png" id="3_rygtl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6uo4"]
+atlas = ExtResource("3_rygtl")
+region = Rect2(0, 0, 14, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5y4m"]
+atlas = ExtResource("3_rygtl")
+region = Rect2(14, 0, 14, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rygtl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6uo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5y4m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="AttackMenu" type="Node2D"]
+script = ExtResource("1_j6uo4")
+canreturn = false
+metadata/_custom_type_script = "uid://r5mwe4f8634i"
+
+[node name="Target" type="Sprite2D" parent="."]
+texture = ExtResource("2_u5y4m")
+
+[node name="Selector" type="AnimatedSprite2D" parent="."]
+position = Vector2(-266, 0)
+sprite_frames = SubResource("SpriteFrames_rygtl")

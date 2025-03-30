@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://hixlg5qngefv"]
+
+[ext_resource type="PackedScene" uid="uid://c7a1q0nebw83y" path="res://nodes/overworld/mainchara.tscn" id="1_16ktt"]
+[ext_resource type="Script" uid="uid://dlxvsgrntoqa6" path="res://scenes/overworld.gd" id="1_356oe"]
+[ext_resource type="PackedScene" uid="uid://c5b2hi0ngoe3o" path="res://nodes/overworld/npcs/dummy.tscn" id="2_356oe"]
+[ext_resource type="Texture2D" uid="uid://ncnjb4nd8iw" path="res://icon.svg" id="2_u2ss0"]
+
+[node name="Overworld" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_356oe")
+
+[node name="NPCs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Transition" type="CanvasModulate" parent="NPCs"]
+visible = false
+color = Color(0, 0, 0, 1)
+
+[node name="Root" type="Node2D" parent="NPCs"]
+y_sort_enabled = true
+
+[node name="MainChara" parent="NPCs/Root" instance=ExtResource("1_16ktt")]
+position = Vector2(119, 166)
+
+[node name="Camera2D" type="Camera2D" parent="NPCs/Root/MainChara"]
+zoom = Vector2(2, 2)
+
+[node name="Dummy" parent="NPCs/Root" instance=ExtResource("2_356oe")]
+position = Vector2(207, 188)
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="Map"]
+position = Vector2(208, 185)
+texture = ExtResource("2_u2ss0")

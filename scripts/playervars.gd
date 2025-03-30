@@ -2,11 +2,17 @@ extends Node
 var health = 20
 var maxhealth = 20
 
+var df = 0
+var at = 10
+
 var inv = 0
 var maxinv = 30
 
 var spd = 0
 var maxspd = 4
+
+var attackspd = 11
+var attackspeedr = 2
 
 signal plrdamage
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgvitc81q6yfi"]
+
+[ext_resource type="Script" uid="uid://5ekwmaq86fbj" path="res://nodes/effects/overworld/transheart.gd" id="1_7upng"]
+[ext_resource type="Texture2D" uid="uid://dc8rskaesswku" path="res://sprites/overworld/smallheart.png" id="2_llgc4"]
+
+[node name="Transheart" type="Node2D"]
+script = ExtResource("1_7upng")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+top_level = true
+z_index = 500
+z_as_relative = false
+texture = ExtResource("2_llgc4")

@@ -1,0 +1,104 @@
+[gd_scene load_steps=14 format=3 uid="uid://dmv2kue3j5imk"]
+
+[ext_resource type="Script" uid="uid://cq2id180aiuc5" path="res://nodes/battle/char/sans.gd" id="1_sy105"]
+[ext_resource type="Texture2D" uid="uid://dv8gvgogn0egh" path="res://sprites/battle/char/sans/fancy/legs.png" id="2_l8d74"]
+[ext_resource type="Texture2D" uid="uid://b6bh2o0heab6t" path="res://sprites/battle/char/sans/fancy/torso.png" id="3_qn57n"]
+[ext_resource type="Texture2D" uid="uid://bvpebdbubmefk" path="res://sprites/battle/char/sans/fancy/head.png" id="4_cse0d"]
+[ext_resource type="Texture2D" uid="uid://bdm3s5ecuqjr" path="res://sprites/battle/char/sans/fancy/torso_n.png" id="5_qn57n"]
+[ext_resource type="Texture2D" uid="uid://c46gsdo2288w7" path="res://sprites/battle/char/sans/fancy/head_n.png" id="5_xo0gd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6bhu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_l8d74")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1wpvg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qn57n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0g6py"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cse0d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_cse0d"]
+diffuse_texture = ExtResource("3_qn57n")
+normal_texture = ExtResource("5_qn57n")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_s4n4e"]
+diffuse_texture = ExtResource("4_cse0d")
+normal_texture = ExtResource("5_xo0gd")
+
+[sub_resource type="Gradient" id="Gradient_l8d74"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qn57n"]
+gradient = SubResource("Gradient_l8d74")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[node name="Sans" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_sy105")
+
+[node name="Legs" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_o6bhu")
+autoplay = "default"
+
+[node name="TorsoB" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -30)
+sprite_frames = SubResource("SpriteFrames_1wpvg")
+
+[node name="HeadB" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -56)
+sprite_frames = SubResource("SpriteFrames_0g6py")
+autoplay = "default"
+
+[node name="Torso" type="Sprite2D" parent="."]
+position = Vector2(0, -30)
+texture = SubResource("CanvasTexture_cse0d")
+
+[node name="Head" type="Sprite2D" parent="."]
+position = Vector2(0, -56)
+texture = SubResource("CanvasTexture_s4n4e")
+
+[node name="LeftLight" type="PointLight2D" parent="Head"]
+position = Vector2(-7, -2)
+energy = 2.0
+texture = SubResource("GradientTexture2D_qn57n")
+height = 1024.0
+
+[node name="RightLight" type="PointLight2D" parent="Head"]
+position = Vector2(7, -2)
+energy = 2.0
+texture = SubResource("GradientTexture2D_qn57n")
+height = 1024.0
+
+[node name="SlashPos" type="Node2D" parent="."]
+position = Vector2(0, -37.5)

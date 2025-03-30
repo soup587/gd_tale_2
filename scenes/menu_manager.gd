@@ -4,7 +4,7 @@ var current: Node
 
 var prevmenus = []
 
-func set_menu(mnu: BattleMenu):
+func set_menu(mnu: BattleMenu, args: Dictionary = {}):
 	if current:
 		current.active = false
 		current.visible = false
@@ -16,6 +16,8 @@ func set_menu(mnu: BattleMenu):
 	if mnu.get_parent() != self:
 		mnu.name = "menu"+str(prevmenus.size()+1)
 		add_child(mnu)
+	for k in args:
+		mnu[k] = args[k]
 	mnu.enable()
 	await get_tree().process_frame
 	current = mnu

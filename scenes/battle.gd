@@ -5,8 +5,13 @@ var currentmenuid
 var currentmenu: Node
 
 var monsters = []
+var targetmonster
+var monsterdmg := 0
 
-@onready var menumanager = $Box/MenuManager
+@onready var box = $UI/Box
+@onready var menumanager = $UI/Box/MenuManager
+
+var soulsc = preload("res://nodes/soul.tscn")
 
 func _init():
 	PlayerVars.spd = PlayerVars.maxspd
@@ -14,11 +19,11 @@ func _init():
 	
 signal battle_init
 
-var flavortext = "???"
+var flavortext: String
 
 func _ready():
-	GlobalVars.psoul = load("res://nodes/soul.tscn").instantiate()
-	add_child(GlobalVars.psoul)
+	GlobalVars.psoul = soulsc.instantiate()
+	$Soul.add_child(GlobalVars.psoul)
 	for m in $Monsters.get_children():
 		monsters.append(m)
 	battle_init.emit()
@@ -32,8 +37,11 @@ var textcall: Callable
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Confirm"):
-		if texting and not $Box/TextBox.typing:
+		if texting and not $UI/Box/TextBox.typing:
 			_do_texti()
+			
+signal monster_attacked
+signal monster_hit
 
 func _do_texti():
 	if texti == texts.size():
@@ -41,30 +49,37 @@ func _do_texti():
 		texti = 0
 		textcall.call()
 		return
-	$Box/TextBox/Text.text = texts[texti]
-	$Box/TextBox.trigger()
+	$UI/Box/TextBox/Text.text = texts[texti]
+	$UI/Box/TextBox.trigger()
 	texti += 1
 
 func do_texts(callback: Callable):
 	textcall = callback
-	$Buttons.butts[$Buttons.sel].set_sel(false)
-	$Box/TextBox.visible = true
+	$UI/Buttons.butts[$UI/Buttons.sel].set_sel(false)
+	$UI/Box/TextBox.visible = true
 	texting = true
 	menumanager.clear()
 	GlobalVars.psoul.visible = false
-	
+
+var is_enemy_turn: bool = false
+
 signal enemy_turn
 signal enemy_turn_over
+var monsterturns: int = 0
 
 var cattack: String = "default"
 	
 func do_enemyturn():
 	enemy_turn.emit()
-	$Box/TextBox.visible = false
-	$Box/TextBox.typing = false
-	$Buttons.butts[$Buttons.sel].set_sel(false)
+	is_enemy_turn = true
+	if $UI/Box/MenuManager/menu2:
+		$UI/Box/MenuManager/menu2.remove()
+		
+	$UI/Box/TextBox.visible = false
+	$UI/Box/TextBox.typing = false
+	$UI/Buttons.butts[$UI/Buttons.sel].set_sel(false)
 	GlobalVars.psoul.visible = true
-	GlobalVars.psoul.position = $Box.position
+	GlobalVars.psoul.position = $UI/Box.position
 	GlobalVars.psoul.reset_physics_interpolation()
 	GlobalVars.psoul.control = true
 	texts = []
@@ -72,14 +87,24 @@ func do_enemyturn():
 	$Attacks.load_enemy_attack_file(cattack)
 
 signal playerturn
+var playerturns: int = 0
 
 func do_playerturn():
+	var was_enemy_turn = is_enemy_turn
+	is_enemy_turn = false
 	enemy_turn_over.emit()
+	if was_enemy_turn:
+		GlobalVars.psoul.visible = false
+		await box.finished
 	playerturn.emit()
-	$Box/TextBox/Text.text = flavortext
-	$Box/TextBox.visible = true
-	$Box/TextBox.trigger()
-	$Buttons.change_sel($Buttons.sel)
+	playerturns += 1
+	if flavortext:
+		$UI/Box/TextBox/Text.text = flavortext
+	else:
+		$UI/Box/TextBox/Text.text = monsters.pick_random().flavors.pick_random()
+	$UI/Box/TextBox.visible = true
+	$UI/Box/TextBox.trigger()
+	$UI/Buttons.change_sel($UI/Buttons.sel)
 	GlobalVars.psoul.visible = true
 	GlobalVars.psoul.reset_physics_interpolation()
 	GlobalVars.psoul.control = false
