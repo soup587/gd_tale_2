@@ -1,3 +1,4 @@
+class_name MainChara
 extends CharacterBody2D
 
 var facing := 0 

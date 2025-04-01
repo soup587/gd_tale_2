@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://crh1ijyj03ror"]
+
+[ext_resource type="Script" uid="uid://4pg0w1uxi6pf" path="res://nodes/overworld/portal.gd" id="1_a8jv2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cem5b"]
+resource_local_to_scene = true
+
+[node name="Portal" type="Node2D"]
+script = ExtResource("1_a8jv2")
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Box" type="CollisionShape2D" parent="Area"]
+shape = SubResource("RectangleShape2D_cem5b")
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]

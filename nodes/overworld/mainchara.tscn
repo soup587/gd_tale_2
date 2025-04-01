@@ -17,6 +17,7 @@ size = Vector2(30, 10)
 
 [node name="MainChara" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_layer = 9
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_4cf6l")
