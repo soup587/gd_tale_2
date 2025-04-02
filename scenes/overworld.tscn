@@ -20,9 +20,6 @@ y_sort_enabled = true
 [node name="MainChara" parent="NPCs/Root" instance=ExtResource("1_16ktt")]
 position = Vector2(119, 166)
 
-[node name="Camera2D" type="Camera2D" parent="NPCs/Root/MainChara"]
-zoom = Vector2(2, 2)
-
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Blank" type="Node2D" parent="Map"]

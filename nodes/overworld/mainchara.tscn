@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://curnjnfdonfop" path="res://sprites/overworld/frisk_default.tres" id="2_67eap"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7dit"]
-size = Vector2(20, 14)
+size = Vector2(18, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_67eap"]
 size = Vector2(10, 30)
@@ -56,3 +56,6 @@ disabled = true
 position = Vector2(-10, 15)
 shape = SubResource("RectangleShape2D_dy45r")
 disabled = true
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)

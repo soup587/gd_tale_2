@@ -11,6 +11,7 @@ var sliding = false
 
 @onready var sprite = $Sprite
 @onready var interactor = $Interact
+@onready var cam = $Camera
 
 func _ready() -> void:
 	GlobalVars.mchara = self

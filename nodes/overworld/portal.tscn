@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://crh1ijyj03ror"]
+[gd_scene load_steps=4 format=3 uid="uid://crh1ijyj03ror"]
 
 [ext_resource type="Script" uid="uid://4pg0w1uxi6pf" path="res://nodes/overworld/portal.gd" id="1_a8jv2"]
+[ext_resource type="SpriteFrames" uid="uid://ckhulql0scoed" path="res://sprites/overworld/unused_default.tres" id="2_cem5b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cem5b"]
 resource_local_to_scene = true
 
 [node name="Portal" type="Node2D"]
 script = ExtResource("1_a8jv2")
+TargetOffset = 20
 
 [node name="Area" type="Area2D" parent="."]
 collision_layer = 0
@@ -14,5 +16,13 @@ collision_mask = 8
 
 [node name="Box" type="CollisionShape2D" parent="Area"]
 shape = SubResource("RectangleShape2D_cem5b")
+
+[node name="Preview" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(0, 1)
+sprite_frames = ExtResource("2_cem5b")
+animation = &"down"
+centered = false
+offset = Vector2(-9.5, -30)
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]

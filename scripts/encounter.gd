@@ -27,7 +27,10 @@ func start_encounter(path = null, fast := 0):
 	if path:
 		currencounter = path
 	if fast == 0:
-		GlobalVars.ovrwrld.add_child(preload("res://nodes/effects/overworld/battleblcon.tscn").instantiate())
+		if GlobalVars.ovrwrld:
+			GlobalVars.ovrwrld.add_child(preload("res://nodes/effects/overworld/battleblcon.tscn").instantiate())
+		else:
+			_start_encounter(path)
 	else:
 		_start_encounter(currencounter)
 	
