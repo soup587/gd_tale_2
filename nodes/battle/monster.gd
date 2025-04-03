@@ -1,4 +1,3 @@
-@tool
 @icon("res://editor/msoul.svg")
 class_name Monster
 extends Node2D
@@ -6,6 +5,8 @@ extends Node2D
 @export var mname = ""
 @export var maxhealth = 100
 var health = maxhealth
+
+@export var DamageSound: AudioStream = preload("res://snd/damage.wav")
 
 var damages = preload("res://nodes/effects/battle/monsterdamage.tscn")
 
@@ -87,6 +88,7 @@ func _physics_process(delta: float) -> void:
 		_shuddering()
 
 func _on_hit():
+	AudioPlayer.play(DamageSound)
 	var d = spawn_dmgwriter()
 	health -= GlobalVars.battle.monsterdmg
 	do_shudder(8)

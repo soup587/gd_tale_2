@@ -1,25 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://hixlg5qngefv"]
+[gd_scene load_steps=6 format=3 uid="uid://hixlg5qngefv"]
 
 [ext_resource type="PackedScene" uid="uid://c7a1q0nebw83y" path="res://nodes/overworld/mainchara.tscn" id="1_16ktt"]
 [ext_resource type="Script" uid="uid://dlxvsgrntoqa6" path="res://scenes/overworld.gd" id="1_356oe"]
+[ext_resource type="AudioStream" uid="uid://dduy6omxjrdsl" path="res://mus/ruins.ogg" id="3_u2ss0"]
+[ext_resource type="Script" uid="uid://dg8llkw4o0g0y" path="res://scenes/musplayer.gd" id="4_356oe"]
+
+[sub_resource type="GDScript" id="GDScript_16ktt"]
+script/source = "extends ColorRect
+
+var type := false
+
+signal done
+
+func trigger(out := false):
+	color.a = 0 if out else 1
+	visible = true
+	process_mode = PROCESS_MODE_INHERIT
+	type = out
+
+func _physics_process(delta: float) -> void:
+	if !type:
+		color.a -= 0.16
+		if color.a < 0.02:
+			done.emit()
+			visible = false
+			process_mode = PROCESS_MODE_DISABLED
+	else:
+		color.a += 0.16
+		if color.a > 0.98:
+			color.a = 1
+			done.emit()
+			process_mode = PROCESS_MODE_DISABLED
+"
 
 [node name="Overworld" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_356oe")
 
-[node name="NPCs" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
-
-[node name="Transition" type="CanvasModulate" parent="NPCs"]
+[node name="Transition" type="ColorRect" parent="."]
 visible = false
+top_level = true
+z_index = 500
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 900.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color(0, 0, 0, 1)
-
-[node name="Root" type="Node2D" parent="NPCs"]
-y_sort_enabled = true
-
-[node name="MainChara" parent="NPCs/Root" instance=ExtResource("1_16ktt")]
-position = Vector2(119, 166)
+script = SubResource("GDScript_16ktt")
 
 [node name="Map" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Blank" type="Node2D" parent="Map"]
+
+[node name="MainChara" parent="." instance=ExtResource("1_16ktt")]
+position = Vector2(119, 166)
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_u2ss0")
+bus = &"Music"
+script = ExtResource("4_356oe")

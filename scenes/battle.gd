@@ -23,6 +23,8 @@ var flavortext: String
 
 func _ready():
 	GlobalVars.psoul = soulsc.instantiate()
+	GlobalVars.mplayer = $BGM
+	GlobalVars.mplayer.play()
 	$Soul.add_child(GlobalVars.psoul)
 	for m in $Monsters.get_children():
 		monsters.append(m)

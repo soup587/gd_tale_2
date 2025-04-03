@@ -9,4 +9,7 @@ script = ExtResource("1_6yp8r")
 [node name="FakeHeart" type="Sprite2D" parent="."]
 visible = false
 top_level = true
+z_index = 500
+z_as_relative = false
+position = Vector2(117, 115)
 texture = ExtResource("2_4oc7v")

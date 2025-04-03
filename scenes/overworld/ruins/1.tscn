@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://chf2hwolxlpy8"]
+[gd_scene load_steps=6 format=4 uid="uid://chf2hwolxlpy8"]
 
 [ext_resource type="Script" uid="uid://bsr30b4anf34r" path="res://scenes/overworld/room.gd" id="1_l8e1y"]
 [ext_resource type="TileSet" uid="uid://dnub8j622878q" path="res://sprites/overworld/tilesets/ruins.tres" id="1_sxhyh"]
 [ext_resource type="Texture2D" uid="uid://ctg102lgb07b" path="res://sprites/overworld/tilesets/ruins_fixedstairs.png" id="2_20x1f"]
 [ext_resource type="PackedScene" uid="uid://crh1ijyj03ror" path="res://nodes/overworld/portal.tscn" id="3_a32l4"]
+[ext_resource type="PackedScene" uid="uid://c5b2hi0ngoe3o" path="res://nodes/overworld/npcs/dummy.tscn" id="5_0cos8"]
 
 [node name="Ruins1" type="Node2D"]
 script = ExtResource("1_l8e1y")
@@ -44,3 +45,7 @@ position = Vector2(160, 100)
 Index = 1
 Room = "ruins/2"
 TargetOffset = Vector2(0, 30)
+
+[node name="Dummy" parent="." instance=ExtResource("5_0cos8")]
+visible = false
+position = Vector2(193, 132)

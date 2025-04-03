@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bffb4wbyyjsa0"]
+[gd_scene load_steps=19 format=3 uid="uid://bffb4wbyyjsa0"]
 
 [ext_resource type="Script" uid="uid://db33c8rcp6s3e" path="res://scenes/battle.gd" id="1_6vh42"]
 [ext_resource type="PackedScene" uid="uid://bhn2a55xgdaiy" path="res://nodes/ui/battlebuttons.tscn" id="1_dn72j"]
@@ -15,6 +15,22 @@
 [ext_resource type="Script" uid="uid://dtjuok7kvj2ay" path="res://scenes/box_text.gd" id="12_22uqi"]
 [ext_resource type="Script" uid="uid://ba6rlp863q1uk" path="res://scenes/menu_manager.gd" id="13_6ni85"]
 
+[sub_resource type="GDScript" id="GDScript_6ni85"]
+script/source = "extends ColorRect
+
+func _ready() -> void:
+	color.a = 1
+
+func _physics_process(delta: float) -> void:
+	color.a -= 0.2
+	GlobalVars.psoul.top_level == true
+	GlobalVars.psoul.get_parent().layer = 400
+	if color.a < 0.1:
+		GlobalVars.psoul.top_level == false
+		GlobalVars.psoul.get_parent().layer = 2
+		queue_free()
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ni85"]
 bg_color = Color(1, 0, 0, 1)
 
@@ -28,7 +44,26 @@ font_size = 24
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_6vh42")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="C" type="ColorRect" parent="CanvasLayer"]
+top_level = true
+z_index = 1000
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 900.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0)
+script = SubResource("GDScript_6ni85")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_6ni85")
 bus = &"Music"
 

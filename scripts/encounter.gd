@@ -10,6 +10,8 @@ func _start_encounter(path):
 	var fl = JSON.parse_string(FileAccess.get_file_as_string("res://data/encounters/"+path+".json"))
 	var tree = get_tree()
 	prevscene = tree.get_current_scene()
+	if prevscene.has_method("deinst"):
+		prevscene.deinst()
 	get_tree().root.remove_child(prevscene)
 	var battle = battlescene.instantiate()
 	var monsternode = battle.get_node("Monsters")
@@ -20,7 +22,7 @@ func _start_encounter(path):
 		monsternode.add_child(mi)
 		i += 1
 	if fl.has("bgm"):
-		battle.get_node("Music").stream = load("res://mus/"+fl.bgm+".ogg")
+		battle.get_node("BGM").stream = load("res://mus/"+fl.bgm+".ogg")
 	get_tree().root.add_child(battle)
 	
 func start_encounter(path = null, fast := 0):
@@ -39,5 +41,7 @@ func start_encounter(path = null, fast := 0):
 func end_encounter():
 	var tree = get_tree()
 	get_tree().root.remove_child(GlobalVars.battle)
+	if prevscene.has_method("reinst"):
+		prevscene.reinst()
 	get_tree().root.add_child(prevscene)
 	tree.set_current_scene(prevscene)

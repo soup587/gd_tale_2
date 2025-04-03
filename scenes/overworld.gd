@@ -2,14 +2,27 @@ extends Node2D
 
 func _ready():
 	GlobalVars.ovrwrld = self
+	GlobalVars.mplayer = $BGM
+	GlobalVars.mplayer.play()
 	change_room("ruins/1")
 
+func deinst():
+	pass
+
+func reinst():
+	GlobalVars.mplayer = $BGM
+	GlobalVars.mplayer.play()
+	$Transition.trigger()
+	$Map.set_modulate(Color.WHITE)
+	GlobalVars.mchara.canmove = true
+
 func change_room(pth, id = null):
-	
 	if !ResourceLoader.exists("res://scenes/overworld/"+pth+".tscn"):
 		push_error("Map '"+pth+"' doesn't exist!")
 		return
-	
+	$Transition.trigger(true)
+	GlobalVars.mchara.canmove = false
+	await $Transition.done
 	$Map.get_child(0).queue_free()
 	
 	await get_tree().physics_frame
@@ -29,3 +42,6 @@ func change_room(pth, id = null):
 	GlobalVars.mchara.cam.reset_physics_interpolation()
 	
 	$Map.add_child(ms)
+	
+	$Transition.trigger()
+	GlobalVars.mchara.canmove = true

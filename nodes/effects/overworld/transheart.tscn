@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dc8rskaesswku" path="res://sprites/overworld/smallheart.png" id="2_llgc4"]
 
 [node name="Transheart" type="Node2D"]
+top_level = true
 script = ExtResource("1_7upng")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 top_level = true
 z_index = 500
 z_as_relative = false
+position = Vector2(242, 165)
 texture = ExtResource("2_llgc4")

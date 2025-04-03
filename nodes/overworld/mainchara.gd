@@ -16,7 +16,6 @@ var sliding = false
 func _ready() -> void:
 	GlobalVars.mchara = self
 
-
 func turn(i):
 	facing = i
 	match facing:
@@ -46,12 +45,16 @@ func turn(i):
 			interactor.get_child(3).set_deferred("disabled", false)
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if !canmove: return
 	if !event.is_action_pressed("Confirm"): return
 	var ies = interactor.get_overlapping_bodies()
 	for v in ies:
 		if (v is Interactable):
 			v._on_interact()
-		
+			
+
+var prevpos := Vector2.ZERO
+
 func _physics_process(delta: float) -> void:
 	if !sliding:
 		velocity = Vector2.ZERO
@@ -65,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		if left:
 			turned = true
 			
-			velocity.x -= (30*3)
+			velocity.x -= (30*(2 if (prevpos.x == (position.x-3)) else 3))
 			
 			if up and facing == 2:
 				turned = false
@@ -74,6 +77,18 @@ func _physics_process(delta: float) -> void:
 			if turned:
 				turn(3)
 		
+		elif right:
+			turned = true
+			
+			velocity.x += (30*(2 if (prevpos.x == (position.x-3)) else 3))
+			
+			if up and facing == 2:
+				turned = false
+			if down and facing == 0:
+				turned = false
+			if turned:
+				turn(1)
+				
 		if up:
 			turned = true
 			
@@ -86,19 +101,7 @@ func _physics_process(delta: float) -> void:
 			if turned:
 				turn(2)
 		
-		if right:
-			turned = true
-			
-			velocity.x += (30*3)
-			
-			if up and facing == 2:
-				turned = false
-			if down and facing == 0:
-				turned = false
-			if turned:
-				turn(1)
-		
-		if down:
+		elif down:
 			turned = true
 			
 			velocity.y += (30*3)
@@ -115,5 +118,5 @@ func _physics_process(delta: float) -> void:
 	else:
 		sprite.stop()
 		sprite.frame = 0
-				
 	move_and_slide()
+	prevpos = position

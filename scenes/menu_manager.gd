@@ -4,6 +4,8 @@ var current: Node
 
 var prevmenus = []
 
+var caninput := false
+
 func set_menu(mnu: BattleMenu, args: Dictionary = {}):
 	if current:
 		current.active = false
@@ -11,6 +13,7 @@ func set_menu(mnu: BattleMenu, args: Dictionary = {}):
 		prevmenus.append(current)
 	else:
 		GlobalVars.battle.menustate = 1
+		caninput = true
 		get_parent().get_node("TextBox").visible = false
 		get_parent().get_node("TextBox").typing = false
 	if mnu.get_parent() != self:
@@ -43,10 +46,11 @@ func clear():
 		m.queue_free()
 	prevmenus = []
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not current: return
 	if event.is_action_pressed("Cancel") and current.canreturn:
 		prev_menu()
 		
 	if event.is_action_pressed("Confirm"):
+		print(current)
 		current.confirm()

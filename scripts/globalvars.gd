@@ -7,3 +7,5 @@ var battle
 var psoul
 
 var mchara
+
+var mplayer

@@ -8,12 +8,12 @@ func _ready():
 	pass
 
 func change_sel(i):
-	if i < butts.size() and i >= 0:
-		GlobalVars.psoul.position = butts[i].position - Vector2(38,0)
-		GlobalVars.psoul.reset_physics_interpolation()
-		butts[sel].set_sel(false)
-		butts[i].set_sel(true)
-		sel = i
+	i = i%(butts.size())
+	GlobalVars.psoul.position = butts[i].position - Vector2(38,0)
+	GlobalVars.psoul.reset_physics_interpolation()
+	butts[sel].set_sel(false)
+	butts[i].set_sel(true)
+	sel = i
 
 func _battle_init():
 	change_sel(0)
