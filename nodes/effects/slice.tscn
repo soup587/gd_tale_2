@@ -57,6 +57,7 @@ animations = [{
 }]
 
 [node name="Slash" type="Node2D"]
+z_index = 50
 script = ExtResource("1_csd85")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]

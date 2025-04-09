@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg588mw6kqu2g"]
+[gd_scene load_steps=3 format=3 uid="uid://bg588mw6kqu2g"]
 
 [ext_resource type="Script" uid="uid://b8k5fct8dprdo" path="res://nodes/battle/menu/entries.gd" id="1_u27og"]
+[ext_resource type="Theme" uid="uid://yeeii3t5aa6l" path="res://sprites/ui/dtm.tres" id="2_5s0hq"]
 
 [node name="Entries" type="Node2D"]
 script = ExtResource("1_u27og")
+
+[node name="PageText" type="Label" parent="."]
+visible = false
+offset_left = 91.0
+offset_top = 21.0
+offset_right = 187.0
+offset_bottom = 53.0
+theme = ExtResource("2_5s0hq")
+text = "PAGE 0"

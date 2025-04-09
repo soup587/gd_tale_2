@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="item" load_steps=2 format=3 uid="uid://lcbtk8mktxry"]
+
+[ext_resource type="Script" uid="uid://duvbghbwx3wte" path="res://scripts/classes/items/item.gd" id="1_ggrff"]
+
+[resource]
+script = ExtResource("1_ggrff")
+name = "Butterscotch Pie"
+short_name = "ButtsPie"
+srs_name = "Pie"
+heal = 99
+use_text = "You ate the %s ."
+metadata/_custom_type_script = "uid://duvbghbwx3wte"

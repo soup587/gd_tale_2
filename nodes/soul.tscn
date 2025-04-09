@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3w4x5602wsbc"]
+[gd_scene load_steps=12 format=3 uid="uid://d3w4x5602wsbc"]
 
 [ext_resource type="Texture2D" uid="uid://dob62xv1cneof" path="res://sprites/soul.png" id="1_0u8lf"]
 [ext_resource type="Script" uid="uid://bwrx0g0yw78wc" path="res://nodes/mysoul.gd" id="1_63fc2"]
 [ext_resource type="AudioStream" uid="uid://carhjvpm6kqu3" path="res://snd/hurt1.wav" id="3_8c2qc"]
+[ext_resource type="Script" uid="uid://cr1n4mawdg2pf" path="res://nodes/grazer.gd" id="4_dtluu"]
+[ext_resource type="AudioStream" uid="uid://bqf6xbos0t21l" path="res://snd/graze.wav" id="5_c4wvv"]
+[ext_resource type="Texture2D" uid="uid://dwjokv3ajuj23" path="res://sprites/grazeappear.png" id="5_p53bw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63fc2"]
 atlas = ExtResource("1_0u8lf")
@@ -28,12 +31,13 @@ animations = [{
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_8c2qc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4wvv"]
+size = Vector2(50, 50)
+
 [node name="MySoul" type="CharacterBody2D"]
 collision_layer = 5
 motion_mode = 1
 script = ExtResource("1_63fc2")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_r1eg3")
@@ -53,3 +57,26 @@ collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactor"]
 shape = SubResource("SegmentShape2D_8c2qc")
+
+[node name="Grazer" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_dtluu")
+
+[node name="snd" type="AudioStreamPlayer" parent="Grazer"]
+stream = ExtResource("5_c4wvv")
+bus = &"SFX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grazer"]
+shape = SubResource("RectangleShape2D_c4wvv")
+
+[node name="Sprite2" type="Sprite2D" parent="Grazer"]
+texture = ExtResource("5_p53bw")
+hframes = 4
+
+[node name="Sprite1" type="Sprite2D" parent="Grazer"]
+texture = ExtResource("5_p53bw")
+hframes = 4
+frame = 3
+
+[connection signal="area_entered" from="Grazer" to="Grazer" method="_on_area_entered"]

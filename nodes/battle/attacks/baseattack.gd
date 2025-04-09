@@ -21,6 +21,9 @@ extends Node2D
 				modulate = Color(0.988, 0.65, 0)
 		color = new
 
+## How many Tension Points the attack should grant when grazed, if TP is enabled.
+@export var gpoints := 0.5
+
 var collider: CollisionObject2D
 
 var colliding: bool = false
@@ -38,6 +41,18 @@ func set_enabled(state: bool):
 
 func _on_enabled():
 	pass
+
+var grazetimer := 0
+var grazed := false
+
+func _grazelogic():
+	if !grazed: return
+	if grazetimer == 0:
+		grazetimer = 5
+	else:
+		grazetimer -= 1
+		if grazetimer == 0:
+			grazed = false
 
 func _ready() -> void:
 	var dtimer = Timer.new()
@@ -61,6 +76,7 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	if !enabled: return
+	_grazelogic()
 	if colliding:
 		match color:
 			0:

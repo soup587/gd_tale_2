@@ -43,6 +43,9 @@ func confirm():
 	if bonus > 12:
 		damage = round(damage * stretch * 2)
 	
+	var tps = clamp((150-(bonus))/50.0,1,25)
+	MgrTension.add(tps)
+	
 	GlobalVars.battle.monsterdmg = damage
 	
 	var slice = load("res://nodes/effects/slice.tscn").instantiate()

@@ -45,6 +45,8 @@ func _input(event: InputEvent) -> void:
 signal monster_attacked
 signal monster_hit
 
+signal spared
+
 func _do_texti():
 	if texti == texts.size():
 		texting = false
@@ -58,10 +60,11 @@ func _do_texti():
 func do_texts(callback: Callable):
 	textcall = callback
 	$UI/Buttons.butts[$UI/Buttons.sel].set_sel(false)
-	$UI/Box/TextBox.visible = true
 	texting = true
 	menumanager.clear()
 	GlobalVars.psoul.visible = false
+	$UI/Box/TextBox.visible = true
+	_do_texti()
 
 var is_enemy_turn: bool = false
 

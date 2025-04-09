@@ -18,7 +18,9 @@ func _start_encounter(path):
 	var i = 1
 	for m in fl.monsters:
 		var mi = load("res://nodes/battle/enemy/"+m+".tscn").instantiate()
-		mi.position.x = 100 * (i-fl.monsters.size())
+		mi.z_index = fl.monsters.size() - i
+		mi.position.x = ((i-1)*(300/fl.monsters.size())) * (-1 if i % 2 == 0 else 2)
+		mi.name = mi.mname + " " + String.chr('@'.unicode_at(0)+i)
 		monsternode.add_child(mi)
 		i += 1
 	if fl.has("bgm"):

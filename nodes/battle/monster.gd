@@ -13,7 +13,7 @@ var damages = preload("res://nodes/effects/battle/monsterdamage.tscn")
 @export var at = 0
 @export var df = 0
 
-@export var attacks: Array = ["default"]
+@export var attacks: Array[String] = ["default"]
 
 var slashpos
 
@@ -62,13 +62,11 @@ func _on_attacked():
 	
 var shudder := 0
 var shuddering := false
-var sha := 0.0
 
 signal shudder_finshed
 
 func do_shudder(val):
 	shudder = val
-	sha = position.x
 	shuddering = true
 	
 func _shuddering():
@@ -76,12 +74,12 @@ func _shuddering():
 		shudder = -(shudder + 1)
 	else:
 		shudder = -shudder
-	csprite.position.x = sha + shudder
+	csprite.position.x = shudder
 	csprite.reset_physics_interpolation()
 	if shudder == 0:
 		shudder_finshed.emit()
 		shuddering = false
-		csprite.position.x = sha 
+		csprite.position.x = 0
 
 func _physics_process(delta: float) -> void:
 	if shuddering:

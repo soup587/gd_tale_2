@@ -52,5 +52,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		prev_menu()
 		
 	if event.is_action_pressed("Confirm"):
-		print(current)
 		current.confirm()

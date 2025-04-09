@@ -1,0 +1,30 @@
+{
+	"length": 400,
+	"boxsize": [300,136],
+	"objects": [
+		{
+			"node": "skeletons/bone",
+			"count": 5,
+			"position": [100,389],
+			"delay": 48,
+			"countdelay": 48,
+			"properties": {
+				"height": 132,
+				"speed": 4,
+				"color": 1
+			}
+		},
+		{
+			"node": "skeletons/bone",
+			"count": 5,
+			"position": [100,389],
+			"delay": 24,
+			"countdelay": 48,
+			"properties": {
+				"height": 132,
+				"speed": 4,
+				"color": 2
+			}
+		}
+	]
+}

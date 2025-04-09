@@ -52,9 +52,14 @@ func _on_interact():
 						smnu.add_entry(a.text, a.func)
 				GlobalVars.battle.menumanager.set_menu(mnu)
 			2:
-				pass
+				if PlayerVars.items.is_empty(): return
+				var mnu = load("res://nodes/battle/menu/entries.tscn").instantiate()
+				for v in PlayerVars.items:
+					var itm = Items.get_item(v)
+					mnu.add_entry(itm.short_name,func(): pass)
+				GlobalVars.battle.menumanager.set_menu(mnu)
 			3:
 				var mnu = load("res://nodes/battle/menu/entries.tscn").instantiate()
-				mnu.add_entry("Spare", func(): pass)
+				mnu.add_entry("Spare", func(): GlobalVars.battle.spared.emit())
 				mnu.add_entry("Flee", func(): Encounters.end_encounter())
 				GlobalVars.battle.menumanager.set_menu(mnu)

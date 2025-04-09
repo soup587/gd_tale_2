@@ -6,7 +6,7 @@ func _ready() -> void:
 	$Sprite.global_position = GlobalVars.mchara.global_position - Vector2(0,10)
 	$Sprite.reset_physics_interpolation()
 	var tween = create_tween()
-	tween.tween_property($Sprite, "global_position", Vector2((24), 236), 0.56666666666)
+	tween.tween_property($Sprite, "global_position", Vector2((24), 235), 0.56666666666)
 	await tween.finished
 	await get_tree().create_timer(5/30).timeout
 	GlobalVars.mchara.visible = true

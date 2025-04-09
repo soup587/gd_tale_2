@@ -14,6 +14,17 @@ var maxspd = 4
 var attackspd = 11
 var attackspeedr = 2
 
+var items = [
+	"pie",
+	"pie",
+	"pie",
+	"candy",
+	"pie",
+	"candy",
+	"pie",
+	"pie"
+]
+
 signal plrdamage
 
 func damage_player(amt = 1, iinv = true):
